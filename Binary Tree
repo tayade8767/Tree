@@ -1,0 +1,131 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class Node
+{
+    public:
+    int value;
+    Node* left;
+    Node* right;
+    Node(int value)
+    {
+        this->value=value;
+        left=nullptr;
+        right=nullptr;
+    }
+};
+
+class Tree
+{
+    public:
+    int value;
+    Node* root;
+    
+    Tree(int value)
+    {
+        Node* root = new Node(value);
+        root->left=nullptr;
+        root->right=nullptr;
+    }
+
+    Node* Create()
+    {
+        int x,val;
+        cout<<"Enter -1 for No Node "<<endl;
+        cin>>x;
+        if( x == -1)
+        {
+            return 0;
+        }
+        cout<<"Enter the Node Value :: ";
+        cin>>val;
+        Node* temp = new Node(val);
+
+        cout<<"Enter the Left Child of "<<temp->value<<endl;
+        temp->left=Create();
+
+        cout<<"Enter the Right Child of "<<temp->value<<endl;
+        temp->right=Create();
+
+    }
+
+    void Preorder(Node* p)
+    {
+        if(p == nullptr)
+        {
+            return ;
+        }
+        cout<<p->value<<" ";
+        Preorder(p->left);
+        Preorder(p->right);
+    }
+
+    void Inorder(Node* p)
+    {
+        if(p == nullptr)
+        {
+            return ;
+        }
+        Preorder(p->left);
+        cout<<p->value<<" ";
+        Preorder(p->right);
+    }
+
+    void Postorder(Node* p)
+    {
+        if(p == nullptr)
+        {
+            return ;
+        }
+        Preorder(p->left);
+        Preorder(p->right);
+        cout<<p->value<<" ";
+    }
+
+};
+
+int main()
+{
+    int root_value;
+    cout<<"Enter the value of the Root :: ";
+    cin>>root_value;
+    Node* root;
+    Tree* Troot = new Tree(root_value);
+    
+    int n;
+    while(true)
+    {
+        cout<<"Enter the 1 for the Create the Binary Tree "<<endl;
+        cout<<"enter the 2 for the print Tree "<<endl;
+        cin>>n;
+        switch(n)
+        {
+            case 1:
+            {
+                cout<<"We are going to Create the Binary Tree"<<endl;
+                root=Troot->Create();
+                break;
+            }
+            case 2:
+            {
+                cout<<"Preorder of the Binary Tree :: ";
+                Troot->Preorder(root);
+                break;
+            }
+            case 3:
+            {
+                cout<<"Ineorder of the Binary Tree :: ";
+                Troot->Inorder(root);
+                break;
+            }
+            case 4:
+            {
+                cout<<"Postorder of the Binary Tree :: ";
+                Troot->Postorder(root);
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
