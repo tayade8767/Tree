@@ -1,0 +1,290 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+class Node
+{
+    public:
+    int value;
+    Node* left;                                                //     this is the Node  creation
+    Node* right;
+    Node(int value)
+    {
+        this->value=value;
+        left=nullptr;
+        right=nullptr;
+    }
+};
+
+class Tree
+{
+    public:
+    int value;
+    Node* root;
+    
+    Tree(int value)
+    {
+        root = new Node(value);
+        root->left=nullptr;                                              //     root is created at the time of the object creation
+        root->right=nullptr;
+    }
+
+    Node* Insert(Node* p,int data)
+    {
+        if(p == nullptr)
+        {
+            Node* temp = new Node(data);
+            temp->left=nullptr;
+            temp->right=nullptr;                                   //   This function is for the Insert in the Binary Search Tree Using the Recursion
+            return temp;
+        }
+        if(p->value < data)
+        {
+            p->right = Insert(p->right,data);
+        }
+        else
+        {
+            p->left = Insert(p->left,data);
+        }
+        return p; 
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// void Insert(Node* p, int data)
+// {
+//   Node* r;
+//   while (p != nullptr)
+//   {
+//     r = p;
+//     if (p->value == data)
+//     {
+//       // Node already present in the tree, so do nothing.
+//       return;
+//     }
+//     else if (p->value > data)
+//     {
+//       p = p->left;
+//     }
+//     else
+//     {
+//       p = p->right;
+//     }
+//   }
+
+//   // Node not present in the tree, so insert it.
+//   Node* temp = new Node(data);
+//   if (r->value > temp->value)
+//   {
+//     r->left = temp;
+//   }
+//   else
+//   {
+//     r->right = temp;
+//   }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    void Search_IN_BST(Node* p,int value)
+    {
+        if( p == nullptr)
+        {
+            cout<<"Node is Not Found in the Binary Search Tree"<<endl;                      //   this function is for Search in the Binary Search tree 
+            return ;
+        }
+        if(p->value == value)
+        {
+            cout<<"Eleemnt found In the Binary Search Tree"<<endl;
+            return ;
+        }
+        else if(p->value < value)
+        {
+            Search_IN_BST(p->right,value);
+        }
+        else
+        {
+            Search_IN_BST(p->left,value);
+        }
+    }
+
+
+
+
+
+    
+
+    void Delete_IN_BST(Node* p,int value)                                            //   we can delete the last node from the Bianry Search Tree
+    {
+        int c=0;
+        Node* r;
+        while(p)
+        {
+            r=p;
+            if(p->value == value)
+            {
+                cout<<"Node is found for the Delection"<<endl;
+                delete r;
+                c++;
+                return ;
+            }
+            else if(p->value < value)                                            //   this will delete the Node From the Binary Search Tree
+            {
+                p=p->right;
+            }
+            else
+            {
+                p=p->left;
+            }
+        }
+        if(c!=0)
+        {
+            cout<<"Node is delected from the Binary Search Tree"<<endl;
+        }
+        else
+        {
+            cout<<"Node is Not found for the Delection"<<endl;
+        }
+    }
+
+    void Preorder(Node* p)
+    {
+        if(p == nullptr)
+        {
+            return ;
+        }
+        cout<<p->value<<" ";                           //   This is the Preorder of any tree
+        Preorder(p->left);
+        Preorder(p->right);
+    }
+
+    void Inorder(Node* p)
+    {
+        if(p == nullptr)
+        {
+            return ;
+        }                                               //  this function contain the Inorder of the any Tree
+        Inorder(p->left);
+        cout<<p->value<<" ";
+        Inorder(p->right);
+    }
+
+    void Postorder(Node* p)
+    {
+        if(p == nullptr)
+        {
+            return ;
+        }                                           //   this function contain the Postorder of the any tree
+        Postorder(p->left);
+        Postorder(p->right);
+        cout<<p->value<<" ";
+    }
+
+};
+
+int main()
+{
+    
+    Node* root = new Node(212);
+    Tree* Troot = new Tree(1);
+    
+    int n;
+    while(true)
+    {
+        cout<<"Enter the 1 for the Create the Binary Tree "<<endl;
+        cout<<"enter the 2 for the print Preorder of Tree "<<endl;
+        cout<<"enter the 3 for the print Inorder of Tree "<<endl;
+        cout<<"enter the 4 for the print Postorder of Tree "<<endl;
+        cout<<"Enter the 5 for the Search in the Binary Search Tree "<<endl;
+        cout<<"Enter the 6 for the Delete In the Binary Search Tree"<<endl;
+        cin>>n;
+        switch(n)
+        {
+            case 1:
+            {
+                int data,n;
+                cout<<"We are going to Create the Binary Search Tree"<<endl;
+                cout<<"Enter the Number Of Nodes to insert"<<endl;
+                cin>>n;
+                for(int i=0;i<n;i++)
+                {
+                    cout<<"Enter the Node Value :: ";
+                    cin>>data;
+                    Troot->Insert(root,data);
+                }
+                break;
+            }
+            case 2:
+            {
+                cout<<"Preorder of the Binary Tree :: ";
+                Troot->Preorder(root);
+                cout<<endl;
+                break;
+            }
+            case 3:
+            {
+                cout<<"Ineorder of the Binary Tree :: ";
+                Troot->Inorder(root);
+                cout<<endl;
+                break;
+            }
+            case 4:
+            {
+                cout<<"Postorder of the Binary Tree :: ";
+                Troot->Postorder(root);
+                cout<<endl;
+                break;
+            }
+            case 5:
+            {
+                
+                int Search_value;
+                cout<<"Enter the value for the Search in the Binary Tree :: ";
+                cin>>Search_value;
+                Troot->Search_IN_BST(root,Search_value);
+                cout<<endl;
+                break;
+            }
+            case 6:
+            {
+
+                int delete_value;
+                cout<<"Enter the value for the Search in the Binary Tree :: ";
+                cin>>delete_value;
+                Troot->Delete_IN_BST(root,delete_value);
+                cout<<endl;
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
